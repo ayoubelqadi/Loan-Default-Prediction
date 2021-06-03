@@ -265,7 +265,7 @@ if __name__ == '__main__':
     perf = transform_perf(train_perf)
     final_data = merge_data(demographics, prevloans, perf)
 
-    encode_cat_variables = input()
+    encode_cat_variables = input("One hot Encoding categorical features: write True \nDelete categorical features: write False ")
     if encode_cat_variables == "True":
         final_data = one_hot_encoding(final_data)
     else:
