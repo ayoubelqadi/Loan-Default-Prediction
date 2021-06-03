@@ -251,26 +251,35 @@ def one_hot_encoding(df):
 
 
 if __name__ == '__main__':
-
+    #Data location
     demographic_data_path = 'https://raw.githubusercontent.com/ayoubelqadi/Loan-Default-Prediction/main/data/traindemographics.csv'
     performing_data_path = 'https://raw.githubusercontent.com/ayoubelqadi/Loan-Default-Prediction/main/data/trainperf.csv'
     previous_loans_data_path = 'https://raw.githubusercontent.com/ayoubelqadi/Loan-Default-Prediction/main/data/trainprevloans.csv'
-
+    #Reading data
     train_perf = pd.read_csv(performing_data_path)
     train_prevloans = pd.read_csv(previous_loans_data_path)
     train_demographics = pd.read_csv(demographic_data_path)
-
+    #Processing the data 
     demographics = transform_demographic(train_demographics)
     prevloans = transform_prevloans(train_prevloans, aggregate_stats=['mean'])
     perf = transform_perf(train_perf)
     final_data = merge_data(demographics, prevloans, perf)
 
-    final_data = one_hot_encoding(final_data)
+    encode_cat_variables = input()
+    if encode_cat_variables:
+        final_data = one_hot_encoding(final_data)
+    else:
+        #Drop all categorical features
+        cat_features = []
+        for feature in final_data.columns:
+            if isinstance(final_data[feature][0], str) and (feature != 'good_bad_flag') and (feature != 'customerid'):
+                cat_features.append(feature)
+            else:
+                pass
+        final_data = final_data.drop(columns=cat_features)
     columns_to_drop = ['customerid']
-    X = final_data.drop(columns=columns_to_drop)  # .to_numpy()
-    #y = final_data['good_bad_flag']  # .to_numpy(dtype=np.int)
+    X = final_data.drop(columns=columns_to_drop)
 
-    print('finisedfdfsjdoklfgnkls')
-
+    
 
 
