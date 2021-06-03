@@ -266,7 +266,7 @@ if __name__ == '__main__':
     final_data = merge_data(demographics, prevloans, perf)
 
     encode_cat_variables = input()
-    if encode_cat_variables:
+    if encode_cat_variables == "True":
         final_data = one_hot_encoding(final_data)
     else:
         #Drop all categorical features
@@ -280,6 +280,6 @@ if __name__ == '__main__':
     columns_to_drop = ['customerid']
     X = final_data.drop(columns=columns_to_drop)
 
-    
+
 
 
