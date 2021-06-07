@@ -264,7 +264,10 @@ if __name__ == '__main__':
     prevloans = transform_prevloans(train_prevloans, aggregate_stats=['mean'])
     perf = transform_perf(train_perf)
     final_data = merge_data(demographics, prevloans, perf)
+    final_data = final_data.drop(columns=['customerid'])
 
+    #Return data aggregated not the final result to be able to play with in the google colab
+    '''
     encode_cat_variables = input("One hot Encoding categorical features: write True \nDelete categorical features: write False ")
     if encode_cat_variables == "True":
         final_data = one_hot_encoding(final_data)
@@ -279,6 +282,7 @@ if __name__ == '__main__':
         final_data = final_data.drop(columns=cat_features)
     columns_to_drop = ['customerid']
     X = final_data.drop(columns=columns_to_drop)
+    '''
 
 
 
